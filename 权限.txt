@@ -1,0 +1,62 @@
+用户表
+
+u_id u_name ... ..
+
+角色表
+
+ roleid rolename
+
+资源表 资源主要是分为两种 一种是路由  一种是ajax 其中路由后台无需控制 只需控制ajax
+默认添加到资源表中的都是要控制的 其中ajax的地址都是以filter开头
+
+ 字段  s_id(主键)  s_url(地址) s_name(这个和vue中的路由name对应，ajax请求的话不需要) 
+  
+ s_type(标识资源是什么资源 0:路由 1:ajax)  s_parentid(父id  路由表示的是父级菜单的id  ajax不需要 )  
+ s_label(名称，路由就是什么什么管理  ajax就是添加修改之类的)
+    
+用户角色表  userrole
+
+ur_uid ur_rid
+
+
+角色资源表 roleresource
+
+rs_rid rs_sid
+
+
+查询用户的所有资源语句
+
+select s.* from 
+user u left join userrole ur on u.u_id = ur.ur_uid
+left join roleresource rs on ur.ur_rid = rs.rs_rid
+where u.u_id = 1
+
+
+最终返回的应该是
+
+      data:[
+         routerlist:[
+
+             {
+                id:1,
+                url:'/home',
+                name:home,
+                type:0,
+               
+               
+              },
+              {
+                        id:2,
+                        url:'/home/a',
+                        type
+ 
+              }
+         ],
+         
+         ajaxlist:[
+
+        
+         ]
+    
+    
+     ]
